@@ -10,7 +10,9 @@ CLASS zcl_fill_model DEFINITION
           wa_t001w     TYPE zta_t001w,
           wa_tspat     TYPE zta_tspat,
           wa_tvk0T     TYPE zta_tvk0T,
-          wa_tvtwt     TYPE zta_tvtwt.
+          wa_tvtwt     TYPE zta_tvtwt,
+          wa_vbrk      TYPE zta_vbrk,
+          wa_vbrp      TYPE zta_vbrp.
 
     DATA: it_ctes_vtas TYPE STANDARD TABLE OF zta_ctes_vtas,
           it_price_rec TYPE STANDARD TABLE OF zta_price_rec,
@@ -18,7 +20,9 @@ CLASS zcl_fill_model DEFINITION
           it_t001w     TYPE STANDARD TABLE OF zta_t001w,
           it_tspat     TYPE STANDARD TABLE OF zta_tspat,
           it_tvk0T     TYPE STANDARD TABLE OF zta_tvk0T,
-          it_tvtwt     TYPE STANDARD TABLE OF zta_tvtwt.
+          it_tvtwt     TYPE STANDARD TABLE OF zta_tvtwt,
+          it_vbrk      TYPE STANDARD TABLE OF zta_vbrk,
+          it_vbrp      TYPE STANDARD TABLE OF zta_vbrp.
 
     INTERFACES if_oo_adt_classrun .
     METHODS: m_insert.
@@ -43,7 +47,9 @@ CLASS zcl_fill_model IMPLEMENTATION.
           it_t001w[],
           it_tspat[],
           it_tvk0T[],
-          it_tvtwt[].
+          it_tvtwt[],
+          it_vbrk[],
+          it_vbrp[].
 
 *    it_ctes_vtas = VALUE #(
 *( kunnr = '0000300009' name1 = 'ASOCIACION DE NORMALIZACION Y' name2 = 'CERTIFICACION' ort01 = 'GUSTAVO A MADERO' pstlz = '07700' regio = 'DF' sortl = 'ASOCIACION' stras = 'EJE LAZARO CARDENAS 869, FRAC 3' telf1 = '8188526000'
@@ -1096,21 +1102,21 @@ CLASS zcl_fill_model IMPLEMENTATION.
 *( spras = 'S' spart = '20' vtext = 'División Productos 2' )
 *                ).
 
-    it_tvk0T = VALUE #(
-( spras = 'D' vkorg = '0001' vtext = 'Verkaufsorg. 0001' )
-( spras = 'E' vkorg = '0001' vtext = 'Sales Org. 001' )
-( spras = 'E' vkorg = '1000' vtext = 'Dom. Sales Org' )
-( spras = 'E' vkorg = '1010' vtext = 'Dom. Sales Org 2' )
-( spras = 'E' vkorg = '1100' vtext = 'Int. Sales Org' )
-( spras = 'E' vkorg = '1110' vtext = 'Int. Sales Org 2' )
-( spras = 'E' vkorg = '5000' vtext = 'Dom. Sales Org' )
-( spras = 'S' vkorg = '0001' vtext = 'Org.ventas 0001' )
-( spras = 'S' vkorg = '1000' vtext = 'Org. Ventas SFI' )
-( spras = 'S' vkorg = '1010' vtext = 'Dom. Org. Ventas 2' )
-( spras = 'S' vkorg = '1100' vtext = 'Org. Ventas Internac' )
-( spras = 'S' vkorg = '1110' vtext = 'Int. Org. Ventas 2' )
-( spras = 'S' vkorg = '5000' vtext = 'Org. Ventas Doméstic' )
-                ).
+*    it_tvk0T = VALUE #(
+*( spras = 'D' vkorg = '0001' vtext = 'Verkaufsorg. 0001' )
+*( spras = 'E' vkorg = '0001' vtext = 'Sales Org. 001' )
+*( spras = 'E' vkorg = '1000' vtext = 'Dom. Sales Org' )
+*( spras = 'E' vkorg = '1010' vtext = 'Dom. Sales Org 2' )
+*( spras = 'E' vkorg = '1100' vtext = 'Int. Sales Org' )
+*( spras = 'E' vkorg = '1110' vtext = 'Int. Sales Org 2' )
+*( spras = 'E' vkorg = '5000' vtext = 'Dom. Sales Org' )
+*( spras = 'S' vkorg = '0001' vtext = 'Org.ventas 0001' )
+*( spras = 'S' vkorg = '1000' vtext = 'Org. Ventas SFI' )
+*( spras = 'S' vkorg = '1010' vtext = 'Dom. Org. Ventas 2' )
+*( spras = 'S' vkorg = '1100' vtext = 'Org. Ventas Internac' )
+*( spras = 'S' vkorg = '1110' vtext = 'Int. Org. Ventas 2' )
+*( spras = 'S' vkorg = '5000' vtext = 'Org. Ventas Doméstic' )
+*                ).
 
 *    it_tvtwt = VALUE #(
 *( spras = 'D' vtweg = '01' vtext = 'Vertriebsweg 01' )
@@ -1126,13 +1132,515 @@ CLASS zcl_fill_model IMPLEMENTATION.
 *( spras = 'S' vtweg = '40' vtext = 'Instalaciones' )
 *                ).
 
+*    it_vbrk = VALUE #(
+*    ( vbeln = '0090094981' fkart = 'FV' knumv = '0000204154' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090094981' zuonr = '0090094981' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094982' fkart = 'FV' knumv = '0000204155' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1782' kunrg = '0000300066'
+*    kunag = '0000300066' spart = '01' xblnr = '0090094982' zuonr = '0090094982' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094983' fkart = 'FV' knumv = '0000204156' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090094983' zuonr = '0090094983' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094984' fkart = 'FV' knumv = '0000204157' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1123' kunrg = '0000300019'
+*    kunag = '0000300019' spart = '01' xblnr = '0090094984' zuonr = '0090094984' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094985' fkart = 'FV' knumv = '0000204158' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2783' kunrg = '0000300009'
+*    kunag = '0000300009' spart = '01' xblnr = '0090094985' zuonr = '0090094985' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094986' fkart = 'FV' knumv = '0000204159' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1123' kunrg = '0000300019'
+*    kunag = '0000300019' spart = '01' xblnr = '0090094986' zuonr = '0090094986' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094987' fkart = 'FV' knumv = '0000204160' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '5017' kunrg = '0000300153'
+*    kunag = '0000300153' spart = '01' xblnr = '0090094987' zuonr = '0090094987' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094988' fkart = 'FV' knumv = '0000204161' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090094988' zuonr = '0090094988' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094989' fkart = 'S1' knumv = '0000204162' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '5017' kunrg = '0000300153'
+*    kunag = '0000300153' spart = '01' xblnr = '0090094987' zuonr = '0090094987' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094990' fkart = 'FV' knumv = '0000204163' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1300' kunrg = '0000300194'
+*    kunag = '0000300194' spart = '01' xblnr = '0090094990' zuonr = '0090094990' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094991' fkart = 'FV' knumv = '0000204164' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1123' kunrg = '0000300019'
+*    kunag = '0000300019' spart = '01' xblnr = '0090094991' zuonr = '0090094991' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094992' fkart = 'FV' knumv = '0000204165' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '5017' kunrg = '0000300153'
+*    kunag = '0000300153' spart = '01' xblnr = '0090094992' zuonr = '0090094992' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094993' fkart = 'FV' knumv = '0000204166' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090094993' zuonr = '0090094993' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094994' fkart = 'FV' knumv = '0000204167' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1222' kunrg = '0000300039'
+*    kunag = '0000300039' spart = '01' xblnr = '0090094994' zuonr = '0090094994' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094995' fkart = 'FV' knumv = '0000204168' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3400' kunrg = '0000300202'
+*    kunag = '0000300202' spart = '01' xblnr = '0090094995' zuonr = '0090094995' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094996' fkart = 'FV' knumv = '0000204169' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3453' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090094996' zuonr = '0090094996' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094997' fkart = 'FV' knumv = '0000204170' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '6680' kunrg = '0000300116'
+*    kunag = '0000300116' spart = '01' xblnr = '0090094997' zuonr = '0090094997' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094998' fkart = 'FV' knumv = '0000204171' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3740' kunrg = '0000300202'
+*    kunag = '0000300202' spart = '01' xblnr = '0090094998' zuonr = '0090094998' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090094999' fkart = 'FV' knumv = '0000204172' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090094999' zuonr = '0090094999' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095000' fkart = 'FV' knumv = '0000204173' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1520' kunrg = '0000300149'
+*    kunag = '0000300149' spart = '01' xblnr = '0090095000' zuonr = '0090095000' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095001' fkart = 'FV' knumv = '0000204174' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095001' zuonr = '0090095001' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095002' fkart = 'FV' knumv = '0000204175' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '4080' kunrg = '0000300196'
+*    kunag = '0000300196' spart = '01' xblnr = '0090095002' zuonr = '0090095002' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095003' fkart = 'FV' knumv = '0000204176' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3253' kunrg = '0000300020'
+*    kunag = '0000300020' spart = '01' xblnr = '0090095003' zuonr = '0090095003' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095005' fkart = 'FV' knumv = '0000204178' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095005' zuonr = '0090095005' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095006' fkart = 'FV' knumv = '0000204179' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2111' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095006' zuonr = '0090095006' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095007' fkart = 'FV' knumv = '0000204180' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095007' zuonr = '0090095007' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095009' fkart = 'FV' knumv = '0000204182' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095009' zuonr = '0090095009' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095010' fkart = 'FV' knumv = '0000204183' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095010' zuonr = '0090095010' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095013' fkart = 'FV' knumv = '0000204186' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095013' zuonr = '0090095013' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095014' fkart = 'FV' knumv = '0000204187' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1924' kunrg = '0000300066'
+*    kunag = '0000300066' spart = '01' xblnr = '0090095014' zuonr = '0090095014' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095016' fkart = 'FV' knumv = '0000204189' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095016' zuonr = '0090095016' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095017' fkart = 'FV' knumv = '0000204190' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095017' zuonr = '0090095017' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095018' fkart = 'FV' knumv = '0000204191' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095018' zuonr = '0090095018' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095019' fkart = 'FV' knumv = '0000204192' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095019' zuonr = '0090095019' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095020' fkart = 'FV' knumv = '0000204193' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095020' zuonr = '0090095020' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095025' fkart = 'FV' knumv = '0000204198' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095025' zuonr = '0090095025' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095028' fkart = 'FV' knumv = '0000204201' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095028' zuonr = '0090095028' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095029' fkart = 'FV' knumv = '0000204202' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095029' zuonr = '0090095029' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095031' fkart = 'FV' knumv = '0000204204' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095031' zuonr = '0090095031' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095032' fkart = 'FV' knumv = '0000204205' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095032' zuonr = '0090095032' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095033' fkart = 'FV' knumv = '0000204206' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095033' zuonr = '0090095033' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095034' fkart = 'FV' knumv = '0000204207' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095034' zuonr = '0090095034' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095035' fkart = 'FV' knumv = '0000204208' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095035' zuonr = '0090095035' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095037' fkart = 'FV' knumv = '0000204210' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095037' zuonr = '0090095037' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095038' fkart = 'FV' knumv = '0000204211' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095038' zuonr = '0090095038' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095039' fkart = 'FV' knumv = '0000204212' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095039' zuonr = '0090095039' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095040' fkart = 'FV' knumv = '0000204213' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095040' zuonr = '0090095040' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095041' fkart = 'FV' knumv = '0000204214' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1924' kunrg = '0000300066'
+*    kunag = '0000300066' spart = '01' xblnr = '0090095041' zuonr = '0090095041' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095048' fkart = 'FV' knumv = '0000204221' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095048' zuonr = '0090095048' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095050' fkart = 'FV' knumv = '0000204223' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095050' zuonr = '0090095050' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095051' fkart = 'FV' knumv = '0000204224' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '9201' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095051' zuonr = '0090095051' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095052' fkart = 'FV' knumv = '0000204225' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095052' zuonr = '0090095052' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095053' fkart = 'FV' knumv = '0000204226' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095053' zuonr = '0090095053' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095054' fkart = 'FV' knumv = '0000204227' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2111' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095054' zuonr = '0090095054' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095055' fkart = 'FV' knumv = '0000204228' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3750' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095055' zuonr = '0090095055' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095056' fkart = 'FV' knumv = '0000204229' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2704' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095056' zuonr = '0090095056' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095057' fkart = 'FV' knumv = '0000204230' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2300' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095057' zuonr = '0090095057' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095058' fkart = 'FV' knumv = '0000204231' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1415' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095058' zuonr = '0090095058' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095059' fkart = 'FV' knumv = '0000204232' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2065' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095059' zuonr = '0090095059' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095060' fkart = 'FV' knumv = '0000204233' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1290' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095060' zuonr = '0090095060' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095062' fkart = 'FV' knumv = '0000204235' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3151' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095062' zuonr = '0090095062' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095065' fkart = 'FV' knumv = '0000204238' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095065' zuonr = '0090095065' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095068' fkart = 'FV' knumv = '0000204241' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '4570' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095068' zuonr = '0090095068' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095073' fkart = 'FV' knumv = '0000204246' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '5700' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095073' zuonr = '0090095073' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095074' fkart = 'FV' knumv = '0000204247' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095074' zuonr = '0090095074' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095076' fkart = 'FV' knumv = '0000204249' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1841' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095076' zuonr = '0090095076' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095079' fkart = 'FV' knumv = '0000204252' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1770' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095079' zuonr = '0090095079' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095081' fkart = 'FV' knumv = '0000204254' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095081' zuonr = '0090095081' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095082' fkart = 'FV' knumv = '0000204255' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1976' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095082' zuonr = '0090095082' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095083' fkart = 'FV' knumv = '0000204256' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1924' kunrg = '0000300066'
+*    kunag = '0000300066' spart = '01' xblnr = '0090095083' zuonr = '0090095083' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095084' fkart = 'FV' knumv = '0000204257' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095084' zuonr = '0090095084' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095085' fkart = 'FV' knumv = '0000204258' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095085' zuonr = '0090095085' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095086' fkart = 'FV' knumv = '0000204259' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095086' zuonr = '0090095086' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095094' fkart = 'FV' knumv = '0000204267' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095094' zuonr = '0090095094' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095095' fkart = 'FV' knumv = '0000204268' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095095' zuonr = '0090095095' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095097' fkart = 'FV' knumv = '0000204270' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095097' zuonr = '0090095097' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095098' fkart = 'FV' knumv = '0000204271' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095098' zuonr = '0090095098' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095099' fkart = 'FV' knumv = '0000204272' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095099' zuonr = '0090095099' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095101' fkart = 'FV' knumv = '0000204274' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1658' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095101' zuonr = '0090095101' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095108' fkart = 'F2' knumv = '0000204282' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '6798' kunrg = '0000300039'
+*    kunag = '0000300039' spart = '01' xblnr = '0090095108' zuonr = '0090095108' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095109' fkart = 'F2' knumv = '0000204283' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '12582' kunrg = '0000300039'
+*    kunag = '0000300039' spart = '01' xblnr = '0090095109' zuonr = '0090095109' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095129' fkart = 'F2' knumv = '0000204303' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '3213.6' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095129' zuonr = '0090095129' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095130' fkart = 'F2' knumv = '0000204304' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '6240' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095130' zuonr = '0090095130' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095131' fkart = 'F2' knumv = '0000204305' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2800' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095131' zuonr = '0090095131' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095135' fkart = 'F2' knumv = '0000204310' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '1578' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095135' zuonr = '0090095135' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095136' fkart = 'F2' knumv = '0000204311' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '2900' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095136' zuonr = '0090095136' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095183' fkart = 'F2' knumv = '0000204380' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '8546' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095183' zuonr = '0090095183' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095184' fkart = 'F2' knumv = '0000204382' fkdat = '20250102' gjahr = '2025' bukrs = '1000' netwr = '8486' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095184' zuonr = '0090095184' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095238' fkart = 'F2' knumv = '0000204486' fkdat = '20250103' gjahr = '2025' bukrs = '1000' netwr = '8840.7' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095238' zuonr = '0090095238' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095241' fkart = 'G2' knumv = '0000204493' fkdat = '20250103' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095241' zuonr = '0090093524' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095242' fkart = 'FV' knumv = '0000204494' fkdat = '20250103' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095242' zuonr = '0090095242' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095243' fkart = 'G2' knumv = '0000204496' fkdat = '20250103' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095243' zuonr = '0090093522' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095245' fkart = 'FV' knumv = '0000204498' fkdat = '20250103' gjahr = '2025' bukrs = '1000' netwr = '1740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095245' zuonr = '0090095245' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095362' fkart = 'FV' knumv = '0000204768' fkdat = '20250107' gjahr = '2025' bukrs = '1000' netwr = '2300' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095362' zuonr = '0090095362' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095363' fkart = 'FV' knumv = '0000204769' fkdat = '20250107' gjahr = '2025' bukrs = '1000' netwr = '3200' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095363' zuonr = '0090095363' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095406' fkart = 'F2' knumv = '0000204853' fkdat = '20250108' gjahr = '2025' bukrs = '1000' netwr = '34320' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095406' zuonr = '0090095406' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095535' fkart = 'F2' knumv = '0000205075' fkdat = '20250109' gjahr = '2025' bukrs = '1000' netwr = '16740' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095535' zuonr = '0090095535' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095653' fkart = 'F2' knumv = '0000205306' fkdat = '20250110' gjahr = '2025' bukrs = '1000' netwr = '3245' kunrg = '0000300153'
+*    kunag = '0000300153' spart = '02' xblnr = '0090095653' zuonr = '0090095653' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095661' fkart = 'F2' knumv = '0000205319' fkdat = '20250110' gjahr = '2025' bukrs = '1000' netwr = '6458.4' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095661' zuonr = '0090095661' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095680' fkart = 'F2' knumv = '0000205370' fkdat = '20250113' gjahr = '2025' bukrs = '1000' netwr = '6792' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095680' zuonr = '0090095680' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095832' fkart = 'F2' knumv = '0000205751' fkdat = '20250116' gjahr = '2025' bukrs = '1000' netwr = '6310' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095832' zuonr = '0090095832' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095833' fkart = 'F2' knumv = '0000205753' fkdat = '20250116' gjahr = '2025' bukrs = '1000' netwr = '8907' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095833' zuonr = '0090095833' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095834' fkart = 'F2' knumv = '0000205756' fkdat = '20250116' gjahr = '2025' bukrs = '1000' netwr = '5990.4' kunrg = '0000300108'
+*    kunag = '0000300108' spart = '01' xblnr = '0090095834' zuonr = '0090095834' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095864' fkart = 'F2' knumv = '0000205823' fkdat = '20250117' gjahr = '2025' bukrs = '1000' netwr = '3277' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095864' zuonr = '0090095864' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095865' fkart = 'F2' knumv = '0000205826' fkdat = '20250117' gjahr = '2025' bukrs = '1000' netwr = '1187' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095865' zuonr = '0090095865' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095866' fkart = 'F2' knumv = '0000205828' fkdat = '20250117' gjahr = '2025' bukrs = '1000' netwr = '456' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095866' zuonr = '0090095866' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095903' fkart = 'F2' knumv = '0000205946' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '68290' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '05' xblnr = '0090095903' zuonr = '0090095903' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095910' fkart = 'S1' knumv = '0000205955' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '68290' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '05' xblnr = '0090095903' zuonr = '0090095903' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095911' fkart = 'F2' knumv = '0000205956' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '42701' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '05' xblnr = '0090095911' zuonr = '0090095911' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095942' fkart = 'FV' knumv = '0000206021' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '4638' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095942' zuonr = '0090095942' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095945' fkart = 'S1' knumv = '0000206026' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '4638' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095942' zuonr = '0090095942' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095946' fkart = 'FV' knumv = '0000206027' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '4638' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095946' zuonr = '0090095946' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095953' fkart = 'F2' knumv = '0000206041' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '6112' kunrg = '0000300202'
+*    kunag = '0000300202' spart = '01' xblnr = '0090095953' zuonr = '0090095953' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095964' fkart = 'G2' knumv = '0000206064' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '6680' kunrg = '0000300116'
+*    kunag = '0000300116' spart = '01' xblnr = '0090095964' zuonr = '0090094997' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095965' fkart = 'FV' knumv = '0000206065' fkdat = '20250120' gjahr = '2025' bukrs = '1000' netwr = '6614.4' kunrg = '0000300116'
+*    kunag = '0000300116' spart = '01' xblnr = '0090095965' zuonr = '0090095965' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090095975' fkart = 'F2' knumv = '0000206100' fkdat = '20250121' gjahr = '2025' bukrs = '1000' netwr = '14570' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090095975' zuonr = '0090095975' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096140' fkart = 'F2' knumv = '0000206442' fkdat = '20250123' gjahr = '2025' bukrs = '1000' netwr = '9249.5' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096140' zuonr = '0090096140' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096141' fkart = 'F2' knumv = '0000206445' fkdat = '20250123' gjahr = '2025' bukrs = '1000' netwr = '67615' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096141' zuonr = '0090096141' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096142' fkart = 'F2' knumv = '0000206451' fkdat = '20250123' gjahr = '2025' bukrs = '1000' netwr = '13961.5' kunrg = '0000300019'
+*    kunag = '0000300019' spart = '01' xblnr = '0090096142' zuonr = '0090096142' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096357' fkart = 'F2' knumv = '0000206891' fkdat = '20250128' gjahr = '2025' bukrs = '1000' netwr = '71997' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '05' xblnr = '0090096357' zuonr = '0090096357' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096448' fkart = 'F2' knumv = '0000207093' fkdat = '20250130' gjahr = '2025' bukrs = '1000' netwr = '3500' kunrg = '0000300196'
+*    kunag = '0000300196' spart = '01' xblnr = '0090096448' zuonr = '0090096448' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096500' fkart = 'G2' knumv = '0000207196' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '3151' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096500' zuonr = '0090095062' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096501' fkart = 'FV' knumv = '0000207197' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '3340' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096501' zuonr = '0090096501' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096513' fkart = 'G2' knumv = '0000207217' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '2065' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096513' zuonr = '0090095059' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096515' fkart = 'FV' knumv = '0000207219' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '2189' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096515' zuonr = '0090096515' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096516' fkart = 'G2' knumv = '0000207221' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '1415' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096516' zuonr = '0090095058' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096517' fkart = 'FV' knumv = '0000207222' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '1500' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096517' zuonr = '0090096517' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096519' fkart = 'G2' knumv = '0000207225' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '1290' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096519' zuonr = '0090095060' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*    ( vbeln = '0090096520' fkart = 'FV' knumv = '0000207226' fkdat = '20250131' gjahr = '2025' bukrs = '1000' netwr = '1367' kunrg = '0000301719'
+*    kunag = '0000301719' spart = '01' xblnr = '0090096520' zuonr = '0090096520' waerk = 'MXN' vkorg = '1000' vtweg = '20' )
+*
+*    ).
+
+*    it_vbrp = VALUE #(
+*    ( vbeln = '0090094981' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094982' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1782' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094983' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094984' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1123' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094985' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2783' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094986' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1123' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1100' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094987' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1750' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094987' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '3267' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090094988' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094989' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1750' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094989' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '3267' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090094990' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1300' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094991' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1123' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094992' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1750' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094992' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '3267' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090094993' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094994' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1222' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1100' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094995' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1450' matnr = '000000000007000140' arktx = 'SERVICIO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094995' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1950' matnr = '000000000007000140' arktx = 'SERVICIO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094996' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3453' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094997' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3970' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094997' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2710' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094998' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1595' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094998' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2145' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090094999' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095000' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1520' matnr = '000000000007000140' arktx = 'SERVICIO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095001' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095002' posnr = '10' fklmg = '3' gewei = 'KG' netwr = '4080' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095003' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3253' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095005' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095006' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2111' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095007' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095009' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095010' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095013' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095014' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1924' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095016' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095017' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095018' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095019' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095020' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095025' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095028' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095029' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095031' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095032' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095033' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095034' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095035' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095037' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095038' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095039' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095040' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095041' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1924' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095048' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095050' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095051' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2122' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095051' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1592' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095051' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '2122' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095051' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '1326' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095051' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '2039' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095052' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095053' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095054' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2111' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095055' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3750' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095056' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2704' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095057' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2300' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095058' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1415' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095059' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2065' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095060' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1290' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095062' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3151' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090095065' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095068' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1720' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095068' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2850' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095073' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2850' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095073' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2850' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095074' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095076' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1841' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095079' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1770' matnr = '000000000007000140' arktx = 'SERVICIO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095081' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095082' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1976' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095083' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1924' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095084' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095085' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095086' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095094' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095095' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095097' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095098' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095099' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095101' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1658' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '10' fklmg = '2' gewei = 'KG' netwr = '1144' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2659' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '100' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1100' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '40' fklmg = '2' gewei = 'KG' netwr = '640' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '765' matnr = '000000000000600360' arktx = 'FILTRO DE ACEITE PERKINS 2654403' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '60' fklmg = '1' gewei = 'KG' netwr = '555' matnr = '000000000000602624' arktx = 'FILTRO DE COMBUSTIBLE PERKINS 4816636' werks = '1100' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095108' posnr = '70' fklmg = '1' gewei = 'KG' netwr = '935' matnr = '000000000000600565' arktx = 'FILTRO DE AIRE PERKINS 26510337 ( P82765' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '10' fklmg = '0.5' gewei = 'KG' netwr = '456.5' matnr = '000000000000601025' arktx = 'MANGUERA 2"  P/AGUA CALIENTE 35W' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '20' fklmg = '0.5' gewei = 'KG' netwr = '442.5' matnr = '000000000000601026' arktx = 'MANGUERA 2 1/2 P/AGUA CALIENTE 35W' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '30' fklmg = '4' gewei = 'KG' netwr = '2288' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '40' fklmg = '2' gewei = 'KG' netwr = '5318' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '1707' matnr = '000000000000600536' arktx = 'FILTRO DE AIRE AH-19037' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '60' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1100' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '70' fklmg = '1.5' gewei = 'KG' netwr = '327' matnr = '000000000000601049' arktx = 'MANGUERA 1/4 P/AGUA CALIENTE4 loc' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '80' fklmg = '1' gewei = 'KG' netwr = '320' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '90' fklmg = '1' gewei = 'KG' netwr = '985' matnr = '000000000000603489' arktx = 'FILTRO DE COMBUSTIBLE AR86745 MCA JOHN D' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095109' posnr = '100' fklmg = '1' gewei = 'KG' netwr = '538' matnr = '000000000000603487' arktx = 'FILTRO ACEITE DZ101881 MCA JOHN DEERE' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090095129' posnr = '10' fklmg = '103' gewei = 'KG' netwr = '3213.6' matnr = '000000000000090006' arktx = 'DIESEL' werks = '1000' prctr = '1001001103' kokrs = '1000' )
+*    ( vbeln = '0090095130' posnr = '10' fklmg = '200' gewei = 'KG' netwr = '6240' matnr = '000000000000090006' arktx = 'DIESEL' werks = '1000' prctr = '1001001103' kokrs = '1000' )
+*    ( vbeln = '0090095131' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2800' matnr = '000000000000602348' arktx = 'SERVICIO' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095135' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '740' matnr = '000000000000600001' arktx = 'ACEITE MULTIGRADO 15W40 GALON' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095135' posnr = '31' fklmg = '1' gewei = 'KG' netwr = '209' matnr = '000000000000603727' arktx = 'SELLO TAPOP CARTER CUMMINS 3902425' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095135' posnr = '32' fklmg = '1' gewei = 'KG' netwr = '629' matnr = '000000000000607413' arktx = 'TAPON DE CARTER 4992508 MCA CUMMINS PLUG' werks = '1900' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095136' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2900' matnr = '000000000000602348' arktx = 'SERVICIO' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2268' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '20' fklmg = '3' gewei = 'KG' netwr = '1584' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '638' matnr = '000000000000600371' arktx = 'FILTRO DE ACEITE PERKINS 2654403' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '2287' matnr = '000000000000600581' arktx = 'FILTRO DE AIRE PERKINS 26510380' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '50' fklmg = '2' gewei = 'KG' netwr = '1014' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '60' fklmg = '1' gewei = 'KG' netwr = '555' matnr = '000000000000600815' arktx = 'FILTRO DE COMBUSTIBLE PERKINS 4816636' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095183' posnr = '70' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1900' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095184' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '3200' matnr = '000000000007000172' arktx = 'MANO DE OBRA SERVICIO CORRECTIVO' werks = '1900' prctr = '1001902103' kokrs = '1000' )
+*    ( vbeln = '0090095184' posnr = '21' fklmg = '1' gewei = 'KG' netwr = '5286' matnr = '000000000000602864' arktx = 'REGULADOR DE VOLTAJE MARATHON SE350' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '65' matnr = '000000000000602833' arktx = 'FILTRO D/COMBUSTILBE FF-5479' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '344' matnr = '000000000000600839' arktx = 'FILTRO DE COMBUSTIBLE FS-1275' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '175' matnr = '000000000000601987' arktx = 'FILTRO DE COMBUSTIBLE FF-5052' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '2714' matnr = '000000000000600586' arktx = 'FILTRO DE AIRE AF-25910' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '60' fklmg = '1' gewei = 'KG' netwr = '199' matnr = '000000000000600339' arktx = 'FILTRO D/ ACEITE LF-3959' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '70' fklmg = '0.5' gewei = 'KG' netwr = '103' matnr = '000000000000601049' arktx = 'MANGUERA 1/4 P/AGUA CALIENTE4 loc' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '80' fklmg = '0.5' gewei = 'KG' netwr = '105' matnr = '000000000000601032' arktx = 'MANGUERA 3/8 P/AGUA CALIENTE' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '90' fklmg = '0.2' gewei = 'KG' netwr = '165.2' matnr = '000000000000601045' arktx = 'MANGUERA 1 3/4  P/AGUA CALIENTE 35W' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '100' fklmg = '0.5' gewei = 'KG' netwr = '456.5' matnr = '000000000000601025' arktx = 'MANGUERA 2"  P/AGUA CALIENTE 35W' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '101' fklmg = '1' gewei = 'KG' netwr = '2202' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '110' fklmg = '4' gewei = 'KG' netwr = '2112' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095238' posnr = '120' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095241' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095242' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095243' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095245' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1740' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1900' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095362' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2300' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095363' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3200' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095406' posnr = '10' fklmg = '1100' gewei = 'KG' netwr = '34320' matnr = '000000000000090006' arktx = 'DIESEL' werks = '1000' prctr = '1001001103' kokrs = '1000' )
+*    ( vbeln = '0090095535' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '5700' matnr = '000000000007000303' arktx = 'SERVICIO CORRECTIVO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095535' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '8400' matnr = '000000000007000303' arktx = 'SERVICIO CORRECTIVO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095535' posnr = '30' fklmg = '5' gewei = 'KG' netwr = '2640' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095653' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3245' matnr = '000000000007000303' arktx = 'SERVICIO CORRECTIVO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095661' posnr = '10' fklmg = '207' gewei = 'KG' netwr = '6458.4' matnr = '000000000000090006' arktx = 'DIESEL' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095680' posnr = '20' fklmg = '2' gewei = 'KG' netwr = '482' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095680' posnr = '21' fklmg = '1' gewei = 'KG' netwr = '6310' matnr = '000000000000603002' arktx = 'PRECALENTADOR 1000W A 120V MCA HOTSTART' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095832' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '6310' matnr = '000000000000603002' arktx = 'PRECALENTADOR 1000W A 120V MCA HOTSTART' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2267' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '20' fklmg = '3' gewei = 'KG' netwr = '1584' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '750' matnr = '000000000000600400' arktx = 'FILTRO DE ACEITE 2654407' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '2287' matnr = '000000000000600581' arktx = 'FILTRO DE AIRE PERKINS 26510380' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '50' fklmg = '2.5' gewei = 'KG' netwr = '1265' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1900' prctr = '1001902202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '60' fklmg = '1' gewei = 'KG' netwr = '554' matnr = '000000000000602624' arktx = 'FILTRO DE COMBUSTIBLE PERKINS 4816636' werks = '1900' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095833' posnr = '70' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1900' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095834' posnr = '10' fklmg = '192' gewei = 'KG' netwr = '5990.4' matnr = '000000000000090006' arktx = 'DIESEL' werks = '1000' prctr = '1001001103' kokrs = '1000' )
+*    ( vbeln = '0090095864' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3067' matnr = '000000000000602425' arktx = 'ACUMULADOR 11 PLACAS LTH' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095864' posnr = '20' fklmg = '2' gewei = 'KG' netwr = '180' matnr = '000000000000601993' arktx = 'TERMINALES PARA BATERIA' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095864' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '30' matnr = '000000000000601994' arktx = 'GOMAS ANTISULFATANTES PARA BATERIA' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095865' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1035' matnr = '000000000000601410' arktx = 'KIT DE AFINACION 20KW #0064850' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095865' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '152' matnr = '000000000000800000' arktx = '6715 RALOY SYN-TEC PLATINUM SAE 5W-30 AP' werks = '1000' prctr = '1001003201' kokrs = '1000' )
+*    ( vbeln = '0090095866' posnr = '30' fklmg = '3' gewei = 'KG' netwr = '456' matnr = '000000000000800000' arktx = '6715 RALOY SYN-TEC PLATINUM SAE 5W-30 AP' werks = '1000' prctr = '1001003201' kokrs = '1000' )
+*    ( vbeln = '0090095903' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '42701' matnr = '000000000007000096' arktx = 'RENTA DE PLANTA CAP 150 KW,' werks = '1000' prctr = '1001004101' kokrs = '1000' )
+*    ( vbeln = '0090095903' posnr = '20' fklmg = '2' gewei = 'KG' netwr = '6800' matnr = '000000000007000091' arktx = 'RENTA DE LOTE DE CABLES' werks = '1000' prctr = '1001004101' kokrs = '1000' )
+*    ( vbeln = '0090095903' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '2600' matnr = '000000000007000129' arktx = 'ARRANQUE INICIAL' werks = '1000' prctr = '1001002302' kokrs = '1000' )
+*    ( vbeln = '0090095903' posnr = '41' fklmg = '233' gewei = 'KG' netwr = '7689' matnr = '000000000000090007' arktx = 'DIESEL PROPIO' werks = '1000' prctr = '1001004102' kokrs = '1000' )
+*    ( vbeln = '0090095903' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '8500' matnr = '000000000000602348' arktx = 'SERVICIO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095910' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '42701' matnr = '000000000007000096' arktx = 'RENTA DE PLANTA CAP 150 KW,' werks = '1000' prctr = '1001004101' kokrs = '1000' )
+*    ( vbeln = '0090095910' posnr = '20' fklmg = '2' gewei = 'KG' netwr = '6800' matnr = '000000000007000091' arktx = 'RENTA DE LOTE DE CABLES' werks = '1000' prctr = '1001004101' kokrs = '1000' )
+*    ( vbeln = '0090095910' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '2600' matnr = '000000000007000129' arktx = 'ARRANQUE INICIAL' werks = '1000' prctr = '1001002302' kokrs = '1000' )
+*    ( vbeln = '0090095910' posnr = '41' fklmg = '233' gewei = 'KG' netwr = '7689' matnr = '000000000000090007' arktx = 'DIESEL PROPIO' werks = '1000' prctr = '1001004102' kokrs = '1000' )
+*    ( vbeln = '0090095910' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '8500' matnr = '000000000000602348' arktx = 'SERVICIO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095911' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '42701' matnr = '000000000007000096' arktx = 'RENTA DE PLANTA CAP 150 KW,' werks = '1000' prctr = '1001004101' kokrs = '1000' )
+*    ( vbeln = '0090095942' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095942' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095942' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '1664' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095945' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095945' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095945' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '1664' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095946' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095946' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1487' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095946' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '1664' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '80' fklmg = '1' gewei = 'KG' netwr = '3100' matnr = '000000000007000303' arktx = 'SERVICIO CORRECTIVO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '81' fklmg = '1' gewei = 'KG' netwr = '239' matnr = '000000000000607064' arktx = 'NUT,REGULAR HEXAGON 3903293 MCA CUMMINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '82' fklmg = '1' gewei = 'KG' netwr = '645' matnr = '000000000000607122' arktx = 'SCRW BANJO 3911446 VONNECTOR MCA CUMMINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '83' fklmg = '1' gewei = 'KG' netwr = '401' matnr = '000000000000601528' arktx = 'TORNILLO DE COMBUSTIBLE CUMMINS #3939570' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '84' fklmg = '1' gewei = 'KG' netwr = '367' matnr = '000000000000601436' arktx = 'ORRING MARCA CUMMINS NO. PARTE 3906694' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '85' fklmg = '1' gewei = 'KG' netwr = '215' matnr = '000000000000601437' arktx = 'ORRING MARCA CUMMINS NO. PARTE 3906695' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '86' fklmg = '1' gewei = 'KG' netwr = '103' matnr = '000000000000606550' arktx = 'EMPAQUE 3963983 MCA CUMMINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095953' posnr = '87' fklmg = '1' gewei = 'KG' netwr = '1042' matnr = '000000000000607063' arktx = 'ADAPTER,FILTER HEAD 3925955 MCA CUMMINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095964' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3970' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095964' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2710' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095965' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3931.2' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095965' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '2683.2' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090095975' posnr = '40' fklmg = '2' gewei = 'KG' netwr = '14150' matnr = '000000000000600019' arktx = 'ACUMULADOR 27 PLACAS MCA. GONHER' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095975' posnr = '50' fklmg = '4' gewei = 'KG' netwr = '360' matnr = '000000000000601993' arktx = 'TERMINALES PARA BATERIA' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090095975' posnr = '60' fklmg = '2' gewei = 'KG' netwr = '60' matnr = '000000000000601994' arktx = 'GOMAS ANTISULFATANTES PARA BATERIA' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2202' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '555' matnr = '000000000000600815' arktx = 'FILTRO DE COMBUSTIBLE PERKINS 4816636' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '30' fklmg = '1' gewei = 'KG' netwr = '750' matnr = '000000000000600400' arktx = 'FILTRO DE ACEITE 2654407' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '40' fklmg = '1' gewei = 'KG' netwr = '2300' matnr = '000000000000600581' arktx = 'FILTRO DE AIRE PERKINS 26510380' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '50' fklmg = '2.5' gewei = 'KG' netwr = '602.5' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '60' fklmg = '5' gewei = 'KG' netwr = '2640' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096140' posnr = '70' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '10' fklmg = '9' gewei = 'KG' netwr = '19845' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '50' fklmg = '7' gewei = 'KG' netwr = '1680' matnr = '000000000000601132' arktx = 'MANGUERA DE 5/8  GATES 10 LOC' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '60' fklmg = '24' gewei = 'KG' netwr = '12720' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '70' fklmg = '12' gewei = 'KG' netwr = '1200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '71' fklmg = '1' gewei = 'KG' netwr = '2060' matnr = '000000000000607582' arktx = 'FILTRO DE COMBU 4759205 MCA PERKINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '72' fklmg = '6' gewei = 'KG' netwr = '4944' matnr = '000000000000607581' arktx = 'FILTRO DE ACEITE 4324909 MCA PERKINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096141' posnr = '73' fklmg = '2' gewei = 'KG' netwr = '25166' matnr = '000000000000607583' arktx = 'FILTRO DE AIRE SEV551H/4 MCA PERKINS' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '10' fklmg = '0.5' gewei = 'KG' netwr = '456.5' matnr = '000000000000601025' arktx = 'MANGUERA 2"  P/AGUA CALIENTE 35W' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '20' fklmg = '1' gewei = 'KG' netwr = '1583' matnr = '000000000000601968' arktx = 'FILTRO DE COMBUSTIBLE JOHN DEERE RE-6002' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '30' fklmg = '0.5' gewei = 'KG' netwr = '413' matnr = '000000000000601045' arktx = 'MANGUERA 1 3/4  P/AGUA CALIENTE 35W' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '40' fklmg = '4' gewei = 'KG' netwr = '2288' matnr = '000000000000600022' arktx = 'ANTICONGELANTE CONCENTRADO' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '50' fklmg = '1' gewei = 'KG' netwr = '1008' matnr = '000000000000600318' arktx = 'FILTRO D/ ACEITE JOHN DEERE RE-59754' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '60' fklmg = '2' gewei = 'KG' netwr = '5318' matnr = '000000000000600000' arktx = 'ACEITE MULTIGRADO 15W40 LATA 19 LTS' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '70' fklmg = '1' gewei = 'KG' netwr = '1707' matnr = '000000000000600536' arktx = 'FILTRO DE AIRE AH-19037' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '80' fklmg = '2' gewei = 'KG' netwr = '200' matnr = '000000000000602696' arktx = 'ENVASE DE 20 LTS P/MATERIAL CONTAMINANTE' werks = '1100' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096142' posnr = '90' fklmg = '1' gewei = 'KG' netwr = '988' matnr = '000000000000601056' arktx = 'MANGUERA CODO 2 a 2 1/4 # 3920762' werks = '1100' prctr = '1001102202' kokrs = '1000' )
+*    ( vbeln = '0090096357' posnr = '60' fklmg = '1' gewei = 'KG' netwr = '71997' matnr = '000000000007000303' arktx = 'SERVICIO CORRECTIVO' werks = '1000' prctr = 'YB999' kokrs = '1000' )
+*    ( vbeln = '0090096448' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3500' matnr = '000000000000602254' arktx = 'CARGADOR DE BATERIAS DSE 9130 12V/5AMP' werks = '1000' prctr = '1001002202' kokrs = '1000' )
+*    ( vbeln = '0090096500' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3151' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090096501' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '3340' matnr = '000000000007000080' arktx = 'MTTO PREVENTIVO CONTRA INCENDIO E HIDRO' werks = '1000' prctr = '1001002106' kokrs = '1000' )
+*    ( vbeln = '0090096513' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2065' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090096515' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '2189' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090096516' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1415' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090096517' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1500' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090096519' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1290' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*    ( vbeln = '0090096520' posnr = '10' fklmg = '1' gewei = 'KG' netwr = '1367' matnr = '000000000007000340' arktx = 'SERVICIO MTTO PREVENTIVO A PLANTAS' werks = '1000' prctr = '1001002103' kokrs = '1000' )
+*
+*    ).
+
 *    MODIFY: zta_ctes_vtas FROM TABLE @it_ctes_vtas. COMMIT WORK AND WAIT.
-*            zta_price_rec FROM TABLE @it_price_rec.
+*    MODIFY: zta_price_rec FROM TABLE @it_price_rec. COMMIT WORK AND WAIT.
 *    MODIFY: zta_t001      FROM TABLE @it_t001. COMMIT WORK AND WAIT.
 *    MODIFY: zta_t001w     FROM TABLE @it_t001w. COMMIT WORK AND WAIT.
 *    MODIFY: zta_tspat     FROM TABLE @it_tspat. COMMIT WORK AND WAIT.
-    MODIFY: zta_tvk0T     FROM TABLE @it_tvk0T. COMMIT WORK AND WAIT.
+*    MODIFY: zta_tvk0T     FROM TABLE @it_tvk0T. COMMIT WORK AND WAIT.
 *    MODIFY: zta_tvtwt     FROM TABLE @it_tvtwt. COMMIT WORK AND WAIT.
+*    MODIFY: zta_vbrk      FROM TABLE @it_vbrk. COMMIT WORK AND WAIT.
+*    MODIFY: zta_vbrp      FROM TABLE @it_vbrp. COMMIT WORK AND WAIT.
+
   ENDMETHOD.
 
 ENDCLASS.

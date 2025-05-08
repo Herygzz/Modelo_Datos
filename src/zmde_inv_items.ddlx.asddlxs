@@ -1,0 +1,32 @@
+@Metadata.layer: #CORE
+annotate entity zdd_invoices_items with
+{
+  @UI.hidden: true
+  Vbeln;
+  @UI.lineItem: [{ position: 20, label: 'Pos. Factura' }]
+  Posnr;
+  @UI.lineItem: [{ position: 30, label: 'Cantidad.' }]
+  Cantidad;
+  @UI.lineItem: [{ position: 40, label: 'UM Peso.' }]
+  UMPeso;
+  @UI.lineItem: [{ position: 50, label: 'Peso Neto' }]
+  Netwr;
+  @UI.lineItem: [{ position: 60, label: 'Material' }]
+  Matnr;
+  @UI.lineItem: [{ position: 70, label: 'Desc. Material' }]
+  Arktx;
+  @UI.lineItem: [{ position: 80, label: 'Centro.' }]
+  Werks;
+  @UI.lineItem: [{ position: 90, label: 'Centro de Beneficios' }]
+  Prctr;
+  @UI.lineItem: [{ position: 100, label: 'Soxiedad CO' }]
+  SocCo;
+  @UI.hidden: true
+  Hdr_Waerk;
+
+  //    /* Associations */
+  //    _Header;
+  //    _InvHdr;
+  //    _Plant;
+
+}

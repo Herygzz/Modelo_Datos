@@ -5,10 +5,13 @@
 define view entity zdd_t001w
   as select from zta_t001w
 {
-  key werks as Werks,
-      name1 as Name1,
-      name2 as Name2,
-      stras as Stras,
-      pstlz as Pstlz,
-      ort01 as Ort01
+       @Semantics.language: true
+  key  $session.system_language as Spras,
+       @ObjectModel.text.element: ['Name']
+  key  werks                    as Werks,
+       @Semantics.text: true
+       name1                    as Name,
+       stras                    as Stras,
+       pstlz                    as Pstlz,
+       ort01                    as Ort01
 }

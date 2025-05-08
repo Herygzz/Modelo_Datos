@@ -5,9 +5,13 @@
 define view entity zdd_t001
   as select from zta_t001
 {
-  key bukrs as Bukrs,
-      butxt as Butxt,
-      ort01 as Ort01,
-      land1 as Land1,
-      waers as Waers
+       @Semantics.language: true
+  key  $session.system_language as Spras,
+       @ObjectModel.text.element: ['Butxt']
+  key  bukrs                    as Bukrs,
+       @Semantics.text: true
+       butxt                    as Butxt,
+       ort01                    as Ort01,
+       land1                    as Land1,
+       waers                    as Waers
 }

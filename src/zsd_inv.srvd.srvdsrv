@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definition para Facturas'
+define service Zsd_inv {
+  expose zdd_invoices_hdr;
+  expose zdd_invoices_items;
+}

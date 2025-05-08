@@ -1,0 +1,51 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'Factura',
+    typeNamePlural: 'Detalle de Facturación'
+}
+annotate entity zdd_invoices_hdr_proj with
+{
+  @UI.facet: [
+               { id: 'Itm', position: 30, label: 'Detalle_', purpose: #STANDARD, type: #LINEITEM_REFERENCE, targetElement: '_DocItems'}
+             ]
+
+  @UI.lineItem: [{ position: 10, label: 'Factura.' }]
+  Vbeln;
+  @UI.lineItem: [{ position: 20, label: 'Tipo Fact.' }]
+  Fkart;
+  @UI.hidden: true
+  Knumv;
+  @UI.lineItem: [{ position: 40, label: 'Fecha Fact.' }]
+  Fkdat;
+  @UI.hidden: true
+  Gjahr;
+  @UI.lineItem: [{ position: 60, label: 'Sociedad.' }]
+  Bukrs;
+  @UI.lineItem: [{ position: 70, label: 'Valor.' }]
+  Netwr;
+  @UI.lineItem: [{ position: 80, label: 'Pagador.' }]
+  Pagador;
+  @UI.lineItem: [{ position: 90, label: 'Solicitante' }]
+  Solicitante;
+  @UI.lineItem: [{ position: 100, label: 'Sector.' }]
+  Spart;
+  @UI.lineItem: [{ position: 110, label: 'Referencia.' }]
+  Xblnr;
+  @UI.lineItem: [{ position: 120, label: 'Asignación.' }]
+  Zuonr;
+  @UI.hidden: true
+  Waerk;
+  @UI.lineItem: [{ position: 140, label: 'Org. Ventas' }]
+  Vkorg;
+  @UI.lineItem: [{ position: 150, label: 'Canal Distribución.' }]
+  Vtweg;
+  //    /* Associations */
+  //    _CaDist;
+  //    _CCode;
+  //    _DocItems;
+  //    _OrgVta;
+  //    _Payer;
+  //    _Sector;
+  //    _Solic;
+
+}

@@ -5,11 +5,10 @@
 define view entity zdd_tvtwt
   as select from zta_tvtwt
 {
-//      @UI.hidden: true
-      //  key spras as Spras,
+      @Semantics.language: true
+  key spras as Spras,
+      @ObjectModel.text.element: ['Vtext']
   key vtweg as Vtweg,
       @Semantics.text: true
       vtext as Vtext
 }
-where
-  spras = $session.system_language
